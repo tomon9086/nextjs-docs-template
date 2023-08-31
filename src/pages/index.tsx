@@ -1,8 +1,14 @@
+import { readDocPaths } from '@/api/file'
 import DefaultLayout from '@/layouts/default'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
-const HomePage = () => {
+type StaticProps = {
+  docs: string[]
+}
+
+const HomePage = ({ docs }: StaticProps) => {
   return (
     <>
       <Head>
@@ -11,12 +17,26 @@ const HomePage = () => {
       </Head>
 
       <DefaultLayout>
-        <div>
-          <Link href='hello/world'>hello/world</Link>
-        </div>
+        <ul>
+          {docs.map((path) => (
+            <li key={path}>
+              <Link href={path}>{path}</Link>
+            </li>
+          ))}
+        </ul>
       </DefaultLayout>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps<StaticProps> = async () => {
+  const docs = await readDocPaths()
+
+  return {
+    props: {
+      docs
+    }
+  }
 }
 
 export default HomePage
