@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# nodenv (via anyenv) path
-export PATH="$PATH:$HOME/.anyenv/envs/nodenv/shims"
-
-cd $(dirname "$0")
-yarn pretty
