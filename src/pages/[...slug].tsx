@@ -1,18 +1,20 @@
 import DefaultLayout from '@/layouts/default'
 import { readFile, readdir, stat } from 'fs/promises'
+import { marked } from 'marked'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { relative, resolve } from 'path'
+import sanitize from 'sanitize-html'
 
 const DOCS_DIR = 'docs'
 const EXTENSION = 'md'
 const extensionRegex = /(.*)(\..+)$/
 
 type StaticProps = {
-  body: string
+  bodyHtml: string
 }
 
-const DocsPage = ({ body }: StaticProps) => {
+const DocsPage = ({ bodyHtml }: StaticProps) => {
   return (
     <>
       <Head>
@@ -21,7 +23,7 @@ const DocsPage = ({ body }: StaticProps) => {
       </Head>
 
       <DefaultLayout>
-        <div>{body}</div>
+        <div dangerouslySetInnerHTML={{ __html: bodyHtml }}></div>
       </DefaultLayout>
     </>
   )
@@ -68,10 +70,11 @@ export const getStaticProps: GetStaticProps<StaticProps> = async (ctx) => {
   const buffer = await readFile(
     resolve(DOCS_DIR, slug.join('/') + '.' + EXTENSION)
   )
+  const bodyMd = buffer.toString()
 
   return {
     props: {
-      body: buffer.toString()
+      bodyHtml: sanitize(marked(bodyMd))
     }
   }
 }
