@@ -1,5 +1,6 @@
 import DefaultLayout from '@/layouts/default'
 import Head from 'next/head'
+import Link from 'next/link'
 
 const HomePage = () => {
   return (
@@ -10,7 +11,9 @@ const HomePage = () => {
       </Head>
 
       <DefaultLayout>
-        <div>Hello, World!</div>
+        <div>
+          <Link href='hello/world'>hello/world</Link>
+        </div>
       </DefaultLayout>
     </>
   )
