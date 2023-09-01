@@ -1,22 +1,23 @@
 import { readDocFile, readDocPaths } from '@/api/file'
 import SidebarLayout from '@/layouts/sidebar'
 import { docsToSidebarItems } from '@/util/sidebar'
-import { marked } from 'marked'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import sanitize from 'sanitize-html'
 import 'zenn-content-css'
+import markdownToHtml from 'zenn-markdown-html'
 
 type StaticProps = {
   docs: string[]
+  title: string
   bodyHtml: string
 }
 
-const DocsPage = ({ docs, bodyHtml }: StaticProps) => {
+const DocsPage = ({ docs, title, bodyHtml }: StaticProps) => {
   return (
     <>
       <Head>
-        <title>Docs</title>
+        <title>{title}</title>
         <link href='/favicon.ico' rel='icon' />
       </Head>
 
@@ -48,13 +49,15 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<StaticProps> = async (ctx) => {
   const rawSlug = ctx.params?.slug
   const slug = typeof rawSlug === 'string' ? [rawSlug] : rawSlug ?? []
+  const title = decodeURI(slug.slice(-1)[0] ?? '')
   const bodyMd = await readDocFile(slug)
   const docs = await readDocPaths()
 
   return {
     props: {
       docs,
-      bodyHtml: sanitize(marked(bodyMd))
+      title,
+      bodyHtml: sanitize(markdownToHtml(bodyMd))
     }
   }
 }
