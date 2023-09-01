@@ -20,7 +20,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({ sidebarItems, children }) => {
     base: SidebarVariant.drawer,
     md: SidebarVariant.sidebar
   })
-  const sidebarWidth = useBreakpointValue({ base: '0', md: '200px' })
+  const sidebarWidth = useBreakpointValue({ base: '0px', md: '200px' })
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const onHamburgerClick = useCallback(() => {
@@ -53,7 +53,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({ sidebarItems, children }) => {
                 />
               )}
             </header>
-            <Box flexGrow='1' p={5}>
+            <Box flexGrow='1' maxW={`calc(100vw - ${sidebarWidth})`} p={5}>
               <main>{children}</main>
             </Box>
             <footer></footer>
