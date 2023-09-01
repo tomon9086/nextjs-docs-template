@@ -29,9 +29,7 @@
     "babel-plugin-react-require": "^4.0.1",
     "babel-preset-react-app": "^10.0.1",
     "prettier": "^3.0.3",
-    "storybook": "^7.4.0",
     "ts-loader": "^9.4.4",
-    "typescript": "^5.2.2",
-    "webpack": "^5.88.2"
+    "typescript": "^5.2.2"
   }
 }
