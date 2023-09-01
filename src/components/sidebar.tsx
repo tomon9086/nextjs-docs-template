@@ -14,7 +14,8 @@ import {
   VStack
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useMemo } from 'react'
 
 export const enum SidebarVariant {
   drawer = 'drawer',
@@ -35,13 +36,24 @@ export type ContentItem = ContentItemAccordion | ContentItemLink
 
 type ContentListProps = {
   items: ContentItem[]
+  depth?: number
 }
 
 const ContentList: FC<ContentListProps> = (props) => {
-  const { items } = props
+  const { items, depth = 0 } = props
+  const router = useRouter()
+  const slug = useMemo(() => {
+    return router.asPath
+      .split('/')
+      .filter((p) => !!p)
+      .map((p) => decodeURI(p))
+  }, [router])
+  const defaultIndex = useMemo(() => {
+    return items.map((i) => i.label).indexOf(slug[depth])
+  }, [slug])
 
   return (
-    <Accordion w='full'>
+    <Accordion defaultIndex={defaultIndex} w='full'>
       {items.map((item) => {
         return item.type === 'accordion' ? (
           <AccordionItem key={uuid()}>
@@ -52,7 +64,7 @@ const ContentList: FC<ContentListProps> = (props) => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pt={0} pr={0} pb={4} pl={4}>
-              <ContentList items={item.children} />
+              <ContentList depth={depth + 1} items={item.children} />
             </AccordionPanel>
           </AccordionItem>
         ) : (
