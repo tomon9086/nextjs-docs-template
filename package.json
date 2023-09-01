@@ -10,20 +10,27 @@
     "pretty": "prettier --write ."
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.0",
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.2",
     "marked": "^7.0.5",
     "next": "13.4.19",
-    "next-connect": "^1.0.0",
     "normalize.css": "^8.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sanitize-html": "^2.11.0"
+    "sanitize-html": "^2.11.0",
+    "uuid": "^9.0.0",
+    "zenn-content-css": "^0.1.144"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@types/node": "^20.5.7",
     "@types/react": "^18.2.21",
     "@types/sanitize-html": "^2.9.0",
+    "@types/uuid": "^9.0.3",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "babel-plugin-react-require": "^4.0.1",

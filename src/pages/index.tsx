@@ -1,5 +1,7 @@
 import { readDocPaths } from '@/api/file'
-import DefaultLayout from '@/layouts/default'
+import SidebarLayout from '@/layouts/sidebar'
+import { docsToSidebarItems } from '@/util/sidebar'
+import { uuid } from '@/util/uuid'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -16,15 +18,15 @@ const HomePage = ({ docs }: StaticProps) => {
         <link href='/favicon.ico' rel='icon' />
       </Head>
 
-      <DefaultLayout>
+      <SidebarLayout sidebarItems={docsToSidebarItems(docs)}>
         <ul>
           {docs.map((path) => (
-            <li key={path}>
+            <li key={uuid()}>
               <Link href={path}>{path}</Link>
             </li>
           ))}
         </ul>
-      </DefaultLayout>
+      </SidebarLayout>
     </>
   )
 }

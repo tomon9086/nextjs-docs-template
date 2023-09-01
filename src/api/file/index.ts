@@ -20,15 +20,19 @@ const readDirRec = async (
       if (filestat.isDirectory()) {
         return readDirRec(abs, '.', originPath)
       } else {
-        return `${relative(originPath, basePath)}/${p}`.replace(
-          extensionRegex,
-          '$1'
-        )
+        const fullFilepath = `${relative(originPath, basePath)}/${p}`
+        const [_, filepath, ext] = fullFilepath.match(extensionRegex) ?? []
+
+        if (ext.includes(EXTENSION)) {
+          return filepath
+        } else {
+          return undefined
+        }
       }
     })
   )
 
-  return nested.flat()
+  return nested.flat().filter((p): p is string => !!p)
 }
 
 export const readDocPaths = () => readDirRec(DOCS_DIR, '.')
