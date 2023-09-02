@@ -3,7 +3,6 @@ import SidebarLayout from '@/layouts/sidebar'
 import { docsToSidebarItems } from '@/util/sidebar'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import sanitize from 'sanitize-html'
 import 'zenn-content-css'
 import markdownToHtml from 'zenn-markdown-html'
 
@@ -57,7 +56,7 @@ export const getStaticProps: GetStaticProps<StaticProps> = async (ctx) => {
     props: {
       docs,
       title,
-      bodyHtml: sanitize(markdownToHtml(bodyMd))
+      bodyHtml: markdownToHtml(bodyMd)
     }
   }
 }
