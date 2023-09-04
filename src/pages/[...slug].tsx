@@ -21,6 +21,8 @@ const DocsPage = ({ docs, title, bodyHtml }: StaticProps) => {
       </Head>
 
       <SidebarLayout sidebarItems={docsToSidebarItems(docs)}>
+        {/* To show filename as page title, uncomment next line */}
+        {/* <h1>{title}</h1> */}
         <div
           className='znc'
           dangerouslySetInnerHTML={{ __html: bodyHtml }}
