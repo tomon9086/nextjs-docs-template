@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
+    "lint": "eslint . --ext .ts,.tsx",
     "pretty": "prettier --write ."
   },
   "dependencies": {
@@ -33,6 +34,18 @@
     "@typescript-eslint/parser": "^6.5.0",
     "babel-plugin-react-require": "^4.0.1",
     "babel-preset-react-app": "^10.0.1",
+    "eslint": "^8.39.0",
+    "eslint-config-next": "^13.3.1",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard-jsx": "^11.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.3",
     "ts-loader": "^9.4.4",
     "typescript": "^5.2.2"
