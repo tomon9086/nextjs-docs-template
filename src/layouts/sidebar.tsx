@@ -36,10 +36,10 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({ sidebarItems, children }) => {
       <Grid minH='100vh' templateColumns={`${sidebarWidth} 1fr`}>
         <GridItem>
           <Sidebar
-            items={sidebarItems}
-            variant={variant}
             isOpen={isSidebarOpen}
+            items={sidebarItems}
             onClose={onSidebarClose}
+            variant={variant}
           />
         </GridItem>
         <GridItem>
@@ -47,16 +47,16 @@ const SidebarLayout: FC<SidebarLayoutProps> = ({ sidebarItems, children }) => {
             <header>
               {variant === SidebarVariant.drawer && (
                 <IconButton
-                  onClick={onHamburgerClick}
                   aria-label='Open Index'
                   icon={<HamburgerIcon />}
+                  onClick={onHamburgerClick}
                 />
               )}
             </header>
             <Box flexGrow='1' maxW={`calc(100vw - ${sidebarWidth})`} p={5}>
               <main>{children}</main>
             </Box>
-            <footer></footer>
+            <footer />
           </Stack>
         </GridItem>
       </Grid>

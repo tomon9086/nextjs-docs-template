@@ -25,6 +25,7 @@ export const enum SidebarVariant {
 type ContentItemAccordion = {
   type: 'accordion'
   label: string
+  // eslint-disable-next-line no-use-before-define
   children: ContentItem[]
 }
 type ContentItemLink = {
@@ -50,7 +51,7 @@ const ContentList: FC<ContentListProps> = (props) => {
   }, [router])
   const defaultIndex = useMemo(() => {
     return items.map((i) => i.label).indexOf(slug[depth])
-  }, [slug])
+  }, [depth, items, slug])
 
   return (
     <Accordion defaultIndex={defaultIndex} w='full'>
@@ -58,12 +59,12 @@ const ContentList: FC<ContentListProps> = (props) => {
         return item.type === 'accordion' ? (
           <AccordionItem key={uuid()}>
             <AccordionButton w='full'>
-              <Box as='span' flex='1' textAlign='left' fontWeight='bold'>
+              <Box as='span' flex='1' fontWeight='bold' textAlign='left'>
                 {item.label}
               </Box>
               <AccordionIcon />
             </AccordionButton>
-            <AccordionPanel pt={0} pr={0} pb={4} pl={4}>
+            <AccordionPanel pb={4} pl={4} pr={0} pt={0}>
               <ContentList depth={depth + 1} items={item.children} />
             </AccordionPanel>
           </AccordionItem>
@@ -78,12 +79,11 @@ const ContentList: FC<ContentListProps> = (props) => {
 }
 
 type SidebarContentProps = {
-  onClose: () => void
   items: ContentItem[]
 }
 
 const SidebarContent: FC<SidebarContentProps> = (props) => {
-  const { onClose, items } = props
+  const { items } = props
 
   return (
     <VStack>
@@ -100,19 +100,19 @@ type SidebarProps = {
 }
 
 export const Sidebar: FC<SidebarProps> = (props) => {
-  const { isOpen, variant = 'drawer', onClose, items } = props
+  const { onClose, isOpen, variant = 'drawer', items } = props
 
   return variant === 'sidebar' ? (
-    <Box p={5} w='full' h='100%' bg='#dfdfdf'>
-      <SidebarContent items={items} onClose={onClose} />
+    <Box bg='#dfdfdf' h='100%' p={5} w='full'>
+      <SidebarContent items={items} />
     </Box>
   ) : (
-    <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
+    <Drawer isOpen={isOpen} onClose={onClose} placement='left'>
       <DrawerOverlay>
         <DrawerContent pt={10}>
           <DrawerCloseButton />
           <DrawerBody>
-            <SidebarContent items={items} onClose={onClose} />
+            <SidebarContent items={items} />
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>

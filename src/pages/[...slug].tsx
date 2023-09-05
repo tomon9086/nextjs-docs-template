@@ -26,7 +26,7 @@ const DocsPage = ({ docs, title, bodyHtml }: StaticProps) => {
         <div
           className='znc'
           dangerouslySetInnerHTML={{ __html: bodyHtml }}
-        ></div>
+         />
       </SidebarLayout>
     </>
   )
